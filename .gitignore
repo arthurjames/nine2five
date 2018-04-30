@@ -1,0 +1,23 @@
+**/*
+!**/
+bin/
+vendor/
+
+!.gitignore
+!README.md
+!**/*.sample
+!**/*.proto
+
+## go
+!**/*.go
+
+## emacs
+**/*~
+**/\#*
+**/.\#*
+
+## docker
+!docker-compose.yml
+!**/Dockerfile
+!**/*.sh
+

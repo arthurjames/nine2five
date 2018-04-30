@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package internal;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "google/protobuf/timestamp.proto";
+
+
+option (gogoproto.marshaler_all) = true;
+option (gogoproto.unmarshaler_all) = true;
+option (gogoproto.sizer_all) = true;
+option (gogoproto.equal_all) = true;
+
+service TimesheetService {
+  rpc GetTimesheet(TimesheetRequest) returns (TimesheetResponse) {}
+  rpc GetTimesheets(TimesheetsRequest) returns (TimesheetsResponse) {}
+  rpc CreateTimesheet(Timesheet) returns (Empty) {}
+  rpc DeleteTimehsheet(TimesheetRequest) returns (Empty) {}
+  rpc SetLocked(LockRequest) returns (Empty) {}
+}
+
+message Timesheet {
+  int32 ID = 1;
+  int32 customerID = 2;
+  int32 month = 3;
+  int32 year = 4;
+  bool locked = 5;
+  repeated int32 entries = 6;
+  google.protobuf.Timestamp created = 7;
+  google.protobuf.Timestamp updated = 8;
+}
+
+message Entry {
+  int32 ID = 1;
+  string description = 2;
+  google.protobuf.Timestamp start = 3;
+  google.protobuf.Timestamp end = 4;
+  google.protobuf.Timestamp created = 5;
+  google.protobuf.Timestamp deleted = 6;
+  google.protobuf.Timestamp updated = 7;
+}
+
+message TimesheetRequest {
+  int32 id = 1;
+}
+
+message TimesheetResponse {
+  Timesheet timesheet = 1;
+}
+
+message TimesheetsRequest {}
+
+message TimesheetsResponse {
+  repeated Timesheet timesheets = 1;
+}
+
+message LockRequest {
+  int32 id = 1;
+  bool lock = 2;
+}
+
+message Empty {}
